@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice OCR Table Test</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">OCR Test Tool</p>
+        <h1>Invoice PDF/Image Table Extractor</h1>
+        <p class="subtitle">
+          Upload an image-based PDF or invoice image. This tool renders it, runs OCR, and tries to extract table rows.
+        </p>
+      </div>
+    </section>
+
+    <section class="panel upload-panel">
+      <label class="file-box" for="fileInput">
+        <span class="file-icon">📄</span>
+        <strong>Choose PDF or Image</strong>
+        <small>Supported: PDF, PNG, JPG, JPEG, WEBP</small>
+      </label>
+
+      <input id="fileInput" type="file" accept=".pdf,image/*" />
+
+      <div class="controls">
+        <label>
+          OCR language
+          <select id="languageSelect">
+            <option value="eng" selected>English</option>
+          </select>
+        </label>
+
+        <button id="runOcrBtn" type="button" disabled>Run OCR</button>
+        <button id="clearBtn" type="button" class="secondary">Clear</button>
+      </div>
+
+      <div class="status">
+        <div class="progress-track">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+        <p id="statusText">Upload a file to start.</p>
+      </div>
+    </section>
+
+    <section class="grid">
+      <section class="panel preview-panel">
+        <div class="section-title">
+          <h2>Preview</h2>
+          <span id="fileName">No file selected</span>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="previewCanvas"></canvas>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <h2>Raw OCR Text</h2>
+          <button id="copyTextBtn" type="button" class="small-btn">Copy</button>
+        </div>
+
+        <textarea id="ocrText" spellcheck="false" placeholder="OCR text will show here..."></textarea>
+      </section>
+    </section>
+
+    <section class="panel">
+      <div class="section-title">
+        <h2>Extracted Table Rows</h2>
+        <button id="downloadCsvBtn" type="button" class="small-btn" disabled>Download CSV</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Unit price</th>
+              <th>Discount</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <tr>
+              <td colspan="6" class="empty">No rows extracted yet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- CDN libraries. Internet is needed when opening this HTML file. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
